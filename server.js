@@ -1,6 +1,8 @@
 const express = require("express");
 const app = express();
 const cors = require("cors");
+const dotenv = require("dotenv").config();
+const {chathandler} = require("./controllers/chatController");
 
 const connectDB = require("./config/dbConnection");
 
@@ -12,7 +14,9 @@ connectDB();
 app.get("/",(req,res)=>{
     res.send("Server running")
 });
-const port = 5001 || process.env.PORT
+
+app.post("/chat", chathandler);
+const port = process.env.PORT||5001
 app.listen(port, ()=>{
     console.log(`Server running on port ${port}` );
 });
